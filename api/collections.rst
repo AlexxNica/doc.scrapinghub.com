@@ -4,23 +4,58 @@
 Collections API
 ===============
 
-Scrapinghub's *Collections* provide a way to store an arbitrary number
-of records indexed by a key. They're often used by Scrapinghub projects
-as a single place to write information from multiple scraping jobs.
+Scrapinghub's *Collections* are key-value stores for arbitrary large
+number of records. They are especially useful to store information
+produced and/or used by multiple scraping jobs.
 
-The *Collections API* allows storing arbitrary objects in named sets.
-For example::
+*Note that If you want to store urls to be processed by one or multiple jobs,
+please check the frontier api.*
 
-    $ curl -u APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}' \
+A record can be any json dictionnary. They are identified by a ``_key`` field.
+
+
+Quickstart
+----------
+
+A collection is identified by a *project id*, a *type* and a *name*.
+
+
+Create/Update a record:
+***********************
+
+    $ curl -u $APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}' \
         https://storage.scrapinghub.com/collections/78/s/my_collection
 
-Will post an object to the ``my_collection`` collection.
-You can submit multiple objects by separating them with newlines.
-The ``_key`` field is required and used to identify the item and should
-be unique.
 
-The ``/s/`` in the path represents the collection type.
-See below for more details.
+Access a record:
+****************
+
+    $ curl -u $APIKEY: -X GET \
+        https://storage.scrapinghub.com/collections/78/s/my_collection/foo
+
+
+Delete a record:
+****************
+
+    $ curl -u $APIKEY: -X DELETE \
+        https://storage.scrapinghub.com/collections/78/s/my_collection/foo
+
+
+List records:
+*************
+
+    $ curl -u $APIKEY: -X GET \
+        https://storage.scrapinghub.com/collections/78/s/my_collection
+
+
+Create/Update multiple records:
+*******************************
+
+We use the jsonline format by default (json objects separated by a newline):
+
+    $ curl -u $APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}\n{"_key": "goo", "value": "baz"}' \
+        https://storage.scrapinghub.com/collections/78/s/my_collection
+
 
 Collection types
 ----------------
