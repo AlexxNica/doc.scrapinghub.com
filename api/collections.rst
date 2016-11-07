@@ -4,16 +4,23 @@
 Collections API
 ===============
 
-Scrapinghub's *Collections* provide a way to store an arbitrary number of records indexed by a key. They're often used by Scrapinghub projects as a single place to write information from multiple scraping jobs.
+Scrapinghub's *Collections* provide a way to store an arbitrary number
+of records indexed by a key. They're often used by Scrapinghub projects
+as a single place to write information from multiple scraping jobs.
 
-The *Collections API* allows storing arbitrary objects in named sets. For example::
+The *Collections API* allows storing arbitrary objects in named sets.
+For example::
 
     $ curl -u APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}' \
         https://storage.scrapinghub.com/collections/78/s/my_collection
 
-Will post an object to the ``my_collection`` collection. You can submit multiple objects by separating them with newlines. The ``_key`` field is required and used to identify the item and should be unique.
+Will post an object to the ``my_collection`` collection.
+You can submit multiple objects by separating them with newlines.
+The ``_key`` field is required and used to identify the item and should
+be unique.
 
-The ``/s/`` in the path represents the collection type. See below for more details. 
+The ``/s/`` in the path represents the collection type.
+See below for more details.
 
 Collection types
 ----------------
@@ -29,12 +36,16 @@ vs    versioned store       new_versioned_store        Up to 3 copies of each it
 vcs   versioned cache store new_versioned_cached_store Multiple copies are retained, and each one expires after a month
 ====  ===================== ========================== ================================================================
 
-When working with collections with :ref:`python-hubstorage<api-overview-ep-storage>`, you need to select the store. The method you use depends on the type. For example, to access a cached store, you need to use the ``new_cached_store`` method::
+When working with collections with :ref:`python-hubstorage<api-overview-ep-storage>`,
+you need to select the store. The method you use depends on the type.
+For example, to access a cached store,
+you need to use the ``new_cached_store`` method::
 
     >>> collections = project.collections
     >>> collections.new_cached_store('Pages')
 
-Using the wrong storage type will result in a ``KeyError`` when trying to retrieve an item.
+Using the wrong storage type will result in a ``KeyError`` when trying to
+retrieve an item.
 
 collections/:project_id/:type/:collection
 -----------------------------------------
@@ -72,9 +83,13 @@ GET examples::
 
 .. note:: When using :ref:`python-hubstorage <api-overview-ep-storage>`, you should use the method ``iter_json`` to iterate through items in order to filter them.
 
-Prefix filters, unlike other filters, use indexes and should be used when possible. You can use the ``prefixcount`` parameter to limit the number of values returned for each prefix.
+Prefix filters, unlike other filters, use indexes and should be used
+when possible. You can use the ``prefixcount`` parameter to limit the
+number of values returned for each prefix.
 
-A common pattern is to download changes within a certain time period. You can use the ``startts`` and ``endts`` parameters to select records within a certain time window.
+A common pattern is to download changes within a certain time period.
+You can use the ``startts`` and ``endts`` parameters to select records
+within a certain time window.
 
 The current timestamp can be retrieved like so::
 
