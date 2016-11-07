@@ -21,40 +21,56 @@ A collection is identified by a *project id*, a *type* and a *name*.
 
 
 Create/Update a record:
-***********************
+-----------------------
+
+.. code:: shell
 
     $ curl -u $APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}' \
         https://storage.scrapinghub.com/collections/78/s/my_collection
 
 
 Access a record:
-****************
+----------------
+
+.. code:: shell
 
     $ curl -u $APIKEY: -X GET \
         https://storage.scrapinghub.com/collections/78/s/my_collection/foo
 
 
 Delete a record:
-****************
+----------------
+
+.. code:: shell
 
     $ curl -u $APIKEY: -X DELETE \
         https://storage.scrapinghub.com/collections/78/s/my_collection/foo
 
 
 List records:
-*************
+-------------
+
+.. code:: shell
 
     $ curl -u $APIKEY: -X GET \
         https://storage.scrapinghub.com/collections/78/s/my_collection
 
 
 Create/Update multiple records:
-*******************************
+-------------------------------
 
 We use the jsonline format by default (json objects separated by a newline):
 
+.. code:: shell
+
     $ curl -u $APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}\n{"_key": "goo", "value": "baz"}' \
         https://storage.scrapinghub.com/collections/78/s/my_collection
+
+    # Both items are now in the collection:
+    $ curl -u $APIKEY: -X GET \
+        https://storage.scrapinghub.com/collections/78/s/my_collection/foo
+    $ curl -u $APIKEY: -X GET \
+        https://storage.scrapinghub.com/collections/78/s/my_collection/goo
 
 
 Details
@@ -80,7 +96,7 @@ Constraints
 
 - Records are limited to a serialized size of ``10MO``;
 - Javascript's ``inf`` values are not supported;
-- Floating-point number can't be larger than 2^64 - 1.
+- Floating-point numbers can't be larger than 2^64 - 1.
 
 
 API
