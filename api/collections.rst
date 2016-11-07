@@ -150,7 +150,8 @@ The current timestamp can be retrieved like so::
     $ curl https://storage.scrapinghub.com/system/ts
     1403039369570
 
-.. note:: Timestamp filters may perform poorly when selecting a small number of records from a large collection.
+.. note:: Timestamp filters may perform poorly when selecting a small number
+          of records from a large collection.
 
 
 collections/:project_id/:type/:collection/:item
