@@ -15,7 +15,7 @@ A record can be any json dictionnary. They are identified by a ``_key`` field.
 
 
 Quickstart
-----------
+==========
 
 A collection is identified by a *project id*, a *type* and a *name*.
 
@@ -57,8 +57,11 @@ We use the jsonline format by default (json objects separated by a newline):
         https://storage.scrapinghub.com/collections/78/s/my_collection
 
 
-Collection types
-----------------
+Details
+=======
+
+Types
+-----
 
 The following collection types are available:
 
@@ -71,6 +74,17 @@ vs    versioned store       new_versioned_store        Up to 3 copies of each it
 vcs   versioned cache store new_versioned_cached_store Multiple copies are retained, and each one expires after a month
 ====  ===================== ========================== ================================================================
 
+
+Constraints
+-----------
+
+- Records are limited to a serialized size of ``10MO``;
+- Javascript's ``inf`` values are not supported;
+- Floating-point number can't be larger than 2^64 - 1.
+
+
+API
+===
 
 collections/:project_id/:type/:collection
 -----------------------------------------
@@ -149,3 +163,4 @@ GET example::
 
     $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/foo/value
     bar
+
