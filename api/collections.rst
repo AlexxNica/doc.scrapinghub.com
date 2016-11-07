@@ -105,7 +105,7 @@ API
 collections/:project_id/:type/:collection
 -----------------------------------------
 
-Read or write items from or to a collection.
+Read, Write or Remove items.
 
 =========== ========================================================= ========
 Parameter   Description                                               Required
@@ -117,12 +117,13 @@ startts     UNIX timestamp at which to begin results.                 No
 endts       UNIX timestamp at which to end results.                   No
 =========== ========================================================= ========
 
-====== ========================================= ========================================
-Method Description                               Supported parameters
-====== ========================================= ========================================
-GET    Read items from the specified collection. key, prefix, prefixcount, startts, endts
+====== =========================================== ===========================================================
+Method Description                                 Supported parameters
+====== =========================================== ===========================================================
+GET    Read items from the specified collection.   key, prefix, prefixcount, startts, endts
 POST   Write items to the specified collection.
-====== ========================================= ========================================
+DELETE Delete items from the specified collection. key, prefix, prefixcount, startts, endts
+====== =========================================== ===========================================================
 
 .. note:: Pagination and meta parameters are supported, see :ref:`api-overview-pagination` and :ref:`api-overview-metapar`.
 
