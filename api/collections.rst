@@ -137,8 +137,6 @@ GET examples::
     $ curl -u APIKEY: "https://storage.scrapinghub.com/collections/78/s/my_collection?startts=1402699941000&endts=1403039369570"
     {"value":"bar"}
 
-.. note:: When using :ref:`python-hubstorage <api-overview-ep-storage>`, you should use the method ``iter_json`` to iterate through items in order to filter them.
-
 Prefix filters, unlike other filters, use indexes and should be used
 when possible. You can use the ``prefixcount`` parameter to limit the
 number of values returned for each prefix.
