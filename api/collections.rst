@@ -157,26 +157,50 @@ The current timestamp can be retrieved like so::
 collections/:project_id/:type/:collection/:item
 -----------------------------------------------
 
-Read an individual item.
+Read Write or Delete an individual item.
 
-HTTP::
+====== ===========================================
+Method Description
+====== ===========================================
+GET    Read the item with the given key
+POST   Write the item with the given key
+DELETE Delete the item with the given key
+====== ===========================================
 
-    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/foo
+.. code:: shell
+
+    $ curl -u $APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/foo
     {"value":"bar"}
 
-Python (:ref:`python-hubstorage<api-overview-ep-storage>`)::
-
-    >>> store = project.collections.new_store('my_collection')
-    >>> store.get('foo')
-    {u'value': u'bar'}
 
 collections/:project_id/:type/:collection/:item/value
 -----------------------------------------------------
 
 Read an individual item value.
 
-GET example::
+.. code:: shell
 
     $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/foo/value
     bar
+
+collections/:project_id/:type/:collection/count
+-----------------------------------------------
+
+Count the items in a collection.
+
+.. code:: shell
+
+    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/count
+        TODO
+
+
+collections/:project_id/list
+----------------------------
+
+List all collections.
+
+.. code:: shell
+
+    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/list
+    TODO
 
