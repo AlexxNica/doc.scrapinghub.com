@@ -71,16 +71,6 @@ vs    versioned store       new_versioned_store        Up to 3 copies of each it
 vcs   versioned cache store new_versioned_cached_store Multiple copies are retained, and each one expires after a month
 ====  ===================== ========================== ================================================================
 
-When working with collections with :ref:`python-hubstorage<api-overview-ep-storage>`,
-you need to select the store. The method you use depends on the type.
-For example, to access a cached store,
-you need to use the ``new_cached_store`` method::
-
-    >>> collections = project.collections
-    >>> collections.new_cached_store('Pages')
-
-Using the wrong storage type will result in a ``KeyError`` when trying to
-retrieve an item.
 
 collections/:project_id/:type/:collection
 -----------------------------------------
