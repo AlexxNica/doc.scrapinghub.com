@@ -8,16 +8,18 @@ Scrapinghub's *Collections* are key-value stores for arbitrary large
 number of records. They are especially useful to store information
 produced and/or used by multiple scraping jobs.
 
-*Note that If you want to store urls to be processed by one or multiple jobs,
-please check the frontier api.*
-
-A record can be any json dictionnary. They are identified by a ``_key`` field.
+.. note:: The frontier API is best suited to store queues of urls
+          to be processed by scraping jobs.
 
 
 Quickstart
 ==========
 
-A collection is identified by a *project id*, a *type* and a *name*.
+A **collection** is identified by a *project id*, a *type* and a *name*.
+A **record** can be any json dictionnary. They are identified by a ``_key`` field.
+
+*In the following we use project id* ``78`` *, the regular storage type* ``s``
+*for the collection named* ``my_collection``.
 
 
 Create/Update a record:
@@ -59,18 +61,12 @@ List records:
 Create/Update multiple records:
 -------------------------------
 
-We use the jsonline format by default (json objects separated by a newline):
+Use jsonlines format by default (json objects separated by a newline):
 
 .. code:: shell
 
     $ curl -u $APIKEY: -X POST -d '{"_key": "foo", "value": "bar"}\n{"_key": "goo", "value": "baz"}' \
         https://storage.scrapinghub.com/collections/78/s/my_collection
-
-    # Both items are now in the collection:
-    $ curl -u $APIKEY: -X GET \
-        https://storage.scrapinghub.com/collections/78/s/my_collection/foo
-    $ curl -u $APIKEY: -X GET \
-        https://storage.scrapinghub.com/collections/78/s/my_collection/goo
 
 
 Details
@@ -102,10 +98,21 @@ Constraints
 API
 ===
 
+collections/:project_id/list
+----------------------------
+
+List all collections.
+
+.. code:: shell
+
+    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/list
+    TODO
+
+
 collections/:project_id/:type/:collection
 -----------------------------------------
 
-Read, Write or Remove items.
+Read, write or remove items in a collection.
 
 =========== ========================================================= ========
 Parameter   Description                                               Required
@@ -125,7 +132,8 @@ POST   Write items to the specified collection.
 DELETE Delete items from the specified collection. key, prefix, prefixcount, startts, endts
 ====== =========================================== ===========================================================
 
-.. note:: Pagination and meta parameters are supported, see :ref:`api-overview-pagination` and :ref:`api-overview-metapar`.
+.. note:: Pagination and meta parameters are supported,
+          see :ref:`api-overview-pagination` and :ref:`api-overview-metapar`.
 
 GET examples::
 
@@ -152,6 +160,17 @@ The current timestamp can be retrieved like so::
 
 .. note:: Timestamp filters may perform poorly when selecting a small number
           of records from a large collection.
+
+
+collections/:project_id/:type/:collection/count
+-----------------------------------------------
+
+Count the number of items in a collection.
+
+.. code:: shell
+
+    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/count
+        TODO
 
 
 collections/:project_id/:type/:collection/:item
@@ -183,24 +202,19 @@ Read an individual item value.
     $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/foo/value
     bar
 
-collections/:project_id/:type/:collection/count
------------------------------------------------
 
-Count the items in a collection.
+collections/:project_id/:type/:collection/deleted
+-----------------------------------------------------
 
-.. code:: shell
+``POST`` with a list of item key to delete them.
 
-    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/s/my_collection/count
-        TODO
+.. note:: This endpoint is designed to delete a large number of
+          non-consecutive items. To delete consecutives items
+          prefer the faster ``DELETE`` based endpoints.
 
-
-collections/:project_id/list
-----------------------------
-
-List all collections.
 
 .. code:: shell
 
-    $ curl -u APIKEY: https://storage.scrapinghub.com/collections/78/list
-    TODO
+    $ curl -u $APIKEY: -X POST -d 'TODO' \
+        https://storage.scrapinghub.com/collections/78/s/my_collection/deleted
 
